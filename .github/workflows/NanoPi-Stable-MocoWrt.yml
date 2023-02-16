@@ -17,6 +17,13 @@ on:
 #  watch:
 #    types: started
 
+    inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
+
+
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
@@ -92,6 +99,13 @@ jobs:
           ../scripts/preset-clash-core.sh armv8
           ../scripts/preset-terminal-tools.sh
 
+      - name: SSH connection to Actions
+        uses: P3TERX/ssh2actions@v1.0.0
+        if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+        env:
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
       - name: MOD index file
         run: |
            cd $OPENWRTROOT/package/lean/autocore/files/arm
@@ -109,6 +123,7 @@ jobs:
           if "$KMODS_IN_FIRMWARE" = 'true'
           then
               echo "CONFIG_ALL_KMODS=y" >> .config
+              
           fi
           make defconfig
           make download -j8
