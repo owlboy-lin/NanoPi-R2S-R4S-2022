@@ -100,9 +100,9 @@ svn co https://github.com/zcy85611/Openwrt-Package/trunk/luci-udptools
 svn co https://github.com/zcy85611/Openwrt-Package/trunk/udp2raw
 svn co https://github.com/zcy85611/Openwrt-Package/trunk/udpspeeder
 
-# Add luci-app-poweroff Add speedtest
+# Add luci-app-poweroff
 git clone --depth=1 https://github.com/esirplayground/luci-app-poweroff
-# git clone --depth=1 https://github.com/rufengsuixing/luci-app-onliner.git
+
 
 # Add OpenAppFilter
 git clone --depth=1 https://github.com/destan19/OpenAppFilter
